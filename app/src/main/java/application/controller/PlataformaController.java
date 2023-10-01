@@ -21,7 +21,7 @@ public class PlataformaController {
     @RequestMapping("/list")
     public String list(Model model) {
         model.addAttribute("plataformas", plataformaRepo.findAll());
-        return "/platforma/lista";
+        return "/plataforma/list";
     }
 
     @RequestMapping("/insert")
@@ -52,25 +52,23 @@ public class PlataformaController {
         return "redirect:/plataforma/list";
     }
 
-
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String update(
         @RequestParam("id") int id,
         @RequestParam("nome") String nome,
         @RequestParam("fornecedor") String fornecedor
-        ) {
-            Optional<Plataforma> plataforma = plataformaRepo.findById(id);
+    ) {
+        Optional<Plataforma> plataforma = plataformaRepo.findById(id);
 
-            if(plataforma.isPresent()) {
-                plataforma.get().setNome(nome);
-                plataforma.get().setFornecedor(fornecedor);
+        if(plataforma.isPresent()) {
+            plataforma.get().setNome(nome);
+            plataforma.get().setFornecedor(fornecedor);
 
-                plataformaRepo.save(plataforma.get());
-            }
-
-            return "redirect:/plataforma/list";
+            plataformaRepo.save(plataforma.get());
         }
-
+        
+        return "redirect:/plataforma/list";
+    }
 
     @RequestMapping("/delete")
     public String delete(Model model, @RequestParam("id") int id) {
@@ -83,7 +81,6 @@ public class PlataformaController {
 
         return "redirect:/plataforma/list";
     }
-    
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public String delete(@RequestParam("id") int id) {
@@ -91,5 +88,4 @@ public class PlataformaController {
 
         return "redirect:/plataforma/list";
     }
-    
 }
